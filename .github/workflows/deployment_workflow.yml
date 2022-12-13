@@ -15,8 +15,8 @@ env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 jobs:
-  simple_deployment_pipeline:
-    runs-on: ubuntu-20.04
+  install_and_build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -25,11 +25,11 @@ jobs:
       - name: npm install
         run: npm install
       - name: lint
-        run: npm run eslint
+        run: npm run lint
       - name: build
         run: npm run build
   deploy:
-      needs: [simple_deployment_pipeline]
+      needs: [install_and_build]
       name: Deploy app
       runs-on: ubuntu-latest
       # If the event is push, and the commit messaged DON'T contain '#skip'
