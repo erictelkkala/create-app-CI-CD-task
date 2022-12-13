@@ -11,6 +11,7 @@ on:
     # note that your "main" branch might be called main instead of master
     types: [opened, synchronize]
 
+# GitHub secret for deploying to fly.io
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -29,6 +30,7 @@ jobs:
       - name: build
         run: npm run build
   deploy:
+      # Wait for build
       needs: [install_and_build]
       name: Deploy app
       runs-on: ubuntu-latest
